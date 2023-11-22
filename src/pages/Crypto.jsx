@@ -1,24 +1,31 @@
 import Search from '../assets/search-icon.svg';
 import Enter from '../assets/submit-icon.svg';
 import Star from '../assets/star.svg';
-import Btc from '../assets/bitcoin-btc-logo.png';
+// import Btc from '../assets/bitcoin-btc-logo.png';
 // import Refresh from './assets/reset.svg';
 import { IoIosRefresh } from 'react-icons/io';
 import { useQuery } from 'react-query';
 import axios from 'axios';
+import { useState } from 'react';
+import ReactPaginate from 'react-paginate';
 
 const Crypto = () => {
+  const [paginate, setPaginate] = useState({
+    orderBy: 'marketCap',
+    timePeriod: '24h',
+    orderDirection: 'desc',
+    limit: '10',
+    offset: '0',
+  });
+  const totalCoins = 1000;
+
   const options = {
     method: 'GET',
     url: 'https://coinranking1.p.rapidapi.com/coins',
     params: {
       referenceCurrencyUuid: 'yhjMzLPhuIDl',
-      timePeriod: '24h',
       'tiers[0]': '1',
-      orderBy: 'marketCap',
-      orderDirection: 'desc',
-      limit: '50',
-      offset: '0',
+      ...paginate,
     },
     headers: {
       'X-RapidAPI-Key': '9f6e343445msh3fe172cdce37101p1a0918jsnf1dc6c7b3640',
@@ -26,7 +33,7 @@ const Crypto = () => {
     },
   };
 
-  const { data: allcoins } = useQuery('coinlist', async () => {
+  const { data: allcoins } = useQuery(['coinlist', paginate], async () => {
     return await axios(options);
   });
 
@@ -81,7 +88,7 @@ const Crypto = () => {
                     <img
                       src={coin?.iconUrl}
                       alt=''
-                      className='w-[40px] h-[40px] object-cover'
+                      className='w-[35px] h-[35px] object-cover'
                     />
                     <h2>{coin?.symbol}</h2>
                   </div>
@@ -95,9 +102,26 @@ const Crypto = () => {
       </table>
       <div className='fcc text-center space-x-2'>
         <h3>per page:</h3>
-        <input type='text' className='w-[30px] bg-[#323232]' placeholder='10' />
+        <input
+          type='text'
+          className='w-[30px] bg-[#323232]'
+          placeholder='10'
+          onChange={(e) => setPaginate({ ...paginate, limit: e.target.value })}
+        />
         <img src={Enter} alt='' />
       </div>
+      <ReactPaginate
+        pageCount={totalCoins / paginate.limit}
+        nextLabel='next >'
+        containerClassName='flex space-x-4 my-4'
+        previousLabel='< previous'
+        onPageChange={(page) => {
+          setPaginate({
+            ...paginate,
+            offset: String(Number(page + 1) * Number(paginate.limit)),
+          });
+        }}
+      />
     </div>
   );
 };
