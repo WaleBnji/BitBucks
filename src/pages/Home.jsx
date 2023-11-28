@@ -1,12 +1,11 @@
 import Logo from '../assets/logo.svg';
 import { Outlet, NavLink } from 'react-router-dom';
+import { CryptoProvider } from '../context/CryptoContext';
 const Home = () => {
   return (
-    <main
-      className='w-full h-full flex flex-col first-letter:
-    content-center items-center relative text-white font-nunito'
-    >
-      <div className='space-y-4 wrapper w-screen h-screen  fixed -z-10'>
+    
+   <CryptoProvider>
+      <div className='space-y-4 '>
         <div className='flex justify-start items-center'>
           <NavLink to='/'>
             <img src={Logo} alt='' />
@@ -16,7 +15,7 @@ const Home = () => {
         <div>
           <nav
             className='w-[80%] mt-16 flex justify-around align-middle
-    border border-cyan rounded-lg
+    border border-cyan rounded-lg mx-auto
     '
           >
             <NavLink
@@ -86,7 +85,8 @@ ${
         </div>
         <Outlet />
       </div>
-    </main>
+
+   </CryptoProvider>
   );
 };
 
