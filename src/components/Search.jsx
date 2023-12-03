@@ -3,23 +3,26 @@ import { useState } from 'react';
 import SearchIcon from '../assets/search-icon.svg';
 import { useContext } from 'react';
 import { CryptoContext } from '../context/CryptoContext';
+import { debounce } from 'lodash';
+/* eslint-disable react/prop-types */ // TODO: upgrade to latest eslint tooling
 
-const Search = () => {
+
+const SearchInput = ({handleSearch}) => {
   const [searchText, setSearchText] = useState('');
-  let { searchData, fetchSearch } = useContext(CryptoContext);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const query = e.target.value;
     setSearchText(query);
-    fetchSearch(query);
+    if(searchText.length > 0){
+      handleSearch(query);
+
+    }
   };
 
-  console.log(searchData);
-
   return (
-    <div className='w-[30%] ml-[2rem]'>
-      <form className='fcc relative'>
+    <>
+    <form className='fcc relative'>
         <input
           type='text'
           onChange={handleSubmit}
@@ -37,6 +40,24 @@ const Search = () => {
           <li>bitcoin</li>
         </ul>
       ) : null}
+    </>
+  )
+}
+
+const Search = () => {
+  let { searchData, fetchResult } = useContext(CryptoContext);
+
+  const debounceFunc = debounce(function (val) {
+    fetchResult(val);
+  }, 2000);
+
+  
+
+  console.log(searchData, 'searchCoins');
+
+  return (
+    <div className='w-[30%] ml-[2rem]'>
+      <SearchInput handleSearch={debounceFunc}/>
     </div>
   );
 };
