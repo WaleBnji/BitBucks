@@ -9,6 +9,7 @@ import { debounce } from 'lodash';
 
 const SearchInput = ({handleSearch}) => {
   const [searchText, setSearchText] = useState('');
+  const {searchData} = useContext(CryptoContext)
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -35,9 +36,21 @@ const SearchInput = ({handleSearch}) => {
         </button>
       </form>
       {searchText.length > 0 ? (
-        <ul className='h-96 w-96 rounded absolute top-[3rem] bg-gray-200 bg-opacity-60 backdrop-blur-md px-2 py-3'>
-          <li>bitcoin</li>
-          <li>bitcoin</li>
+        <ul className='h-96 overflow-x-hidden w-96 rounded absolute top-[3rem] bg-gray-200 bg-opacity-60 backdrop-blur-md px-2 py-3 space-y-3 overflow-y-auto scrollbar-thin'>
+          {searchData ? searchData?.map((coin) => {
+            return (
+              <li key={coin.id} className='flex items-center'>
+                <img
+                        src={coin?.thumb
+                        }
+                        alt={coin.name}
+                        height={25}
+                        width={25}
+                      />
+                      <span className='ml-2'>{coin?.id}</span>
+              </li>
+            )
+          }) : <h2>Please wait a moment</h2> }
         </ul>
       ) : null}
     </>
@@ -45,7 +58,7 @@ const SearchInput = ({handleSearch}) => {
 }
 
 const Search = () => {
-  let { searchData, fetchResult } = useContext(CryptoContext);
+  let {  fetchResult } = useContext(CryptoContext);
 
   const debounceFunc = debounce(function (val) {
     fetchResult(val);
@@ -53,7 +66,6 @@ const Search = () => {
 
   
 
-  console.log(searchData, 'searchCoins');
 
   return (
     <div className='w-[30%] ml-[2rem]'>
