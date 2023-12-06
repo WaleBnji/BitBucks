@@ -9,7 +9,7 @@ import { debounce } from 'lodash';
 
 const SearchInput = ({handleSearch}) => {
   const [searchText, setSearchText] = useState('');
-  const {searchData} = useContext(CryptoContext)
+  const {searchData, setCoinSearch} = useContext(CryptoContext)
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -20,6 +20,10 @@ const SearchInput = ({handleSearch}) => {
 
     }
   };
+
+  const handleCoin = (coin) => {
+    setCoinSearch(coin)
+  }
 
   return (
     <>
@@ -39,7 +43,8 @@ const SearchInput = ({handleSearch}) => {
         <ul className='h-96 overflow-x-hidden w-96 rounded absolute top-[3rem] bg-gray-200 bg-opacity-60 backdrop-blur-md px-2 py-3 space-y-3 overflow-y-auto scrollbar-thin'>
           {searchData ? searchData?.map((coin) => {
             return (
-              <li key={coin.id} className='flex items-center'>
+              <li key={coin.id} className='flex items-center cursor-pointer' onClick={handleCoin(coin.id)}>
+                
                 <img
                         src={coin?.thumb
                         }
