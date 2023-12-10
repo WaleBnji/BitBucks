@@ -42,7 +42,7 @@ const Crypto = () => {
   // });
 
   // console.log(allcoins);
-  const { cryptoData } = useContext(CryptoContext);
+  const { cryptoData, currency } = useContext(CryptoContext);
   console.log(cryptoData, 'allcoins');
 
   // const { allCoins: allCoins2 } = useCoins();
@@ -423,7 +423,7 @@ const Crypto = () => {
                     <td className='py-1 font-semibold text-left'>
                       {new Intl.NumberFormat('en-Ng', {
                         style: 'currency',
-                        currency: 'usd',
+                        currency: currency,
                       }).format(Number(coin?.current_price))}
                     </td>
                     <td className='py-1 font-semibold'>{coin?.total_volume}</td>

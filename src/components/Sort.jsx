@@ -3,7 +3,8 @@
 import { BiReset } from "react-icons/bi";
 const Sort = () => {
   return (
-    <div className="fcc pr-4">
+    <div className="">
+      <label htmlFor="sortby">
      <h3>sort by:</h3>
      <select name="sortby" id="sortby" className="bg-[#000] p-[0.5rem]">
         <option value="marcapdesc">Market Cap Desc</option>
@@ -15,6 +16,8 @@ const Sort = () => {
         <option value="geckodesc">Gecko Desc</option>
         <option value="geckoasc">Gecko Asc</option>
      </select>
+
+      </label>
      <BiReset className="w-[25px] h-[25px] text-cyan"/>
     </div>
   )
