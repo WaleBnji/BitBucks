@@ -2,9 +2,42 @@
 import paginationArrow from '../assets/pagination-arrow.svg';
 import { useContext } from 'react';
 import { CryptoContext } from '../context/CryptoContext';
+import { useRef } from 'react';
+import Enter from '../assets/submit-icon.svg';
+
+const PerPage = () => {
+  const { setPerPage } = useContext(CryptoContext);
+  const inputRef = useRef(null);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    let val = inputRef.current.value;
+    if (val > 0) {
+      setPerPage(val);
+      inputRef.current.value = val;
+    }
+  };
+  return (
+    <form className='fcc' onSubmit={handleSubmit}>
+      <label htmlFor='perpage' className='mr-1'>
+        Per page:
+      </label>
+      <input
+        type='number'
+        ref={inputRef}
+        name='perpage'
+        className='w-[3rem] rounded bg-[#000] border border-gray-100 placeholder:px-1 hover:outline-cyan'
+        placeholder='usd'
+      />
+      <button type='submit'>
+        <img src={Enter} alt='submit' className='cursor-pointer' />
+      </button>
+    </form>
+  );
+};
 
 const Pagination = () => {
   const { page, setPage } = useContext(CryptoContext);
+
   const totalPages = 100;
 
   const prev = () => {
@@ -38,6 +71,8 @@ const Pagination = () => {
   };
   return (
     <div>
+      <PerPage />
+
       <ul className='flex items-center justify-end space-x-4 text-sm'>
         <li>
           <button className='outline-none' onClick={prev}>

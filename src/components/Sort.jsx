@@ -35,7 +35,7 @@ const Sort = () => {
         <img
           src={DropDown}
           alt=''
-          className='absolute right-[1.1rem] pointer-events-none'
+          className='absolute right-[5rem] pointer-events-none'
         />
       </label>
     </div>

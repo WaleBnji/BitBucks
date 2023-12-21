@@ -1,5 +1,5 @@
 // import Search from '../assets/search-icon.svg';
-import Enter from '../assets/submit-icon.svg';
+// import Enter from '../assets/submit-icon.svg';
 // import Star from '../assets/star.svg';
 // import Btc from '../assets/bitcoin-btc-logo.png';
 // import Refresh from './assets/reset.svg';
@@ -44,7 +44,7 @@ const Crypto = () => {
 
   // console.log(allcoins);
   const { cryptoData, currency } = useContext(CryptoContext);
-  console.log(cryptoData, 'allcoins');
+  // console.log(cryptoData, 'allcoins');
 
   // const { allCoins: allCoins2 } = useCoins();
 
