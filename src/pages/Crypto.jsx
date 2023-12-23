@@ -14,6 +14,7 @@ import { useContext } from 'react';
 // import { useCoins } from '../hooks/useCoins';
 import Search from '../components/Filter';
 import Pagination from '../components/Pagination';
+import { Outlet } from 'react-router-dom';
 const Crypto = () => {
   // const [paginate, setPaginate] = useState({
   //   orderBy: 'marketCap',
@@ -480,24 +481,7 @@ const Crypto = () => {
         </span>
         <Pagination />
       </div>
-
-      {/* <div className='fcc text-center space-x-2'>
-        <h3>per page:</h3>
-        <input type='text' className='w-[30px] bg-[#323232]' placeholder='10' />
-        <img src={Enter} alt='' />
-      </div> */}
-      {/* <ReactPaginate
-        pageCount={totalCoins / paginate.limit}
-        nextLabel='next >'
-        containerClassName='flex space-x-4 my-4'
-        previousLabel='< previous'
-        onPageChange={(page) => {
-          setPaginate({
-            ...paginate,
-            offset: String(Number(page + 1) * Number(paginate.limit)),
-          });
-        }}
-      /> */}
+      <Outlet />
     </div>
   );
 };

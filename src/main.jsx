@@ -10,6 +10,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Trending from './pages/trending';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { CryptoProvider } from './context/CryptoContext';
+import CryptoDetails from './components/CryptoDetails';
 
 const router = createBrowserRouter([
   {
@@ -20,6 +21,12 @@ const router = createBrowserRouter([
       {
         path: '/',
         element: <Crypto />,
+        children: [
+          {
+            path: ':coinid',
+            element: <CryptoDetails />,
+          },
+        ],
       },
       {
         path: '/trending',

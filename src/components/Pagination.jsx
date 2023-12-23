@@ -36,7 +36,7 @@ const PerPage = () => {
 };
 
 const Pagination = () => {
-  const { page, setPage } = useContext(CryptoContext);
+  const { page, setPage, cryptoData, perPage } = useContext(CryptoContext);
 
   const totalPages = 100;
 
@@ -69,90 +69,95 @@ const Pagination = () => {
       setPage(page - 2);
     }
   };
-  return (
-    <div>
-      <PerPage />
+  if (cryptoData && cryptoData.length >= perPage)
+    return (
+      <div>
+        <PerPage />
 
-      <ul className='flex items-center justify-end space-x-4 text-sm'>
-        <li>
-          <button className='outline-none' onClick={prev}>
-            <img
-              src={paginationArrow}
-              alt='left'
-              className='rotate-180 w-full h-auto'
-            />
-          </button>
-        </li>
-        {page > 5 ? (
+        <ul className='flex items-center justify-end space-x-4 text-sm'>
           <li>
-            <button
-              className='outline-none hover:text-cyan'
-              onClick={multistepPrev}
-            >
-              ...
+            <button className='outline-none' onClick={prev}>
+              <img
+                src={paginationArrow}
+                alt='left'
+                className='rotate-180 w-full h-auto'
+              />
             </button>
           </li>
-        ) : null}
-        {page - 1 !== 0 ? (
+          {page > 5 ? (
+            <li>
+              <button
+                className='outline-none hover:text-cyan'
+                onClick={multistepPrev}
+              >
+                ...
+              </button>
+            </li>
+          ) : null}
+          {page - 1 !== 0 ? (
+            <li>
+              <button
+                onClick={prev}
+                className='outline-none hover:text-cyan rounded-full w-8 h-8 flex items-center justify-center bg-gray-200 p-2'
+              >
+                {page - 1}
+              </button>
+            </li>
+          ) : null}
           <li>
             <button
-              onClick={prev}
-              className='outline-none hover:text-cyan rounded-full w-8 h-8 flex items-center justify-center bg-gray-200 p-2'
+              disabled
+              className='outline-none hover:text-cyan rounded-full w-8 h-8 flex items-center justify-center bg-cyan text-[#000] p-2'
             >
-              {page - 1}
+              {page}
             </button>
           </li>
-        ) : null}
-        <li>
-          <button
-            disabled
-            className='outline-none hover:text-cyan rounded-full w-8 h-8 flex items-center justify-center bg-cyan text-[#000] p-2'
-          >
-            {page}
-          </button>
-        </li>
-        {page !== totalPages ? (
+          {page !== totalPages ? (
+            <li>
+              <button
+                onClick={next}
+                className='outline-none hover:text-cyan rounded-full w-8 h-8 flex items-center justify-center bg-gray-200 p-2'
+              >
+                {page + 1}
+              </button>
+            </li>
+          ) : null}
+          {page + 1 !== totalPages &&
+          page !== totalPages &&
+          page + 2 !== totalPages ? (
+            <li>
+              <button
+                className='outline-none hover:text-cyan rounded-full'
+                onClick={multistepNext}
+              >
+                ...
+              </button>
+            </li>
+          ) : null}
+          {page !== totalPages &&
+          page + 1 !== totalPages &&
+          page + 2 !== totalPages ? (
+            <li>
+              <button
+                onClick={() => setPage(totalPages)}
+                className='outline-none hover:text-cyan rounded-full w-8 h-8 flex items-center justify-center bg-gray-200 p-2'
+              >
+                {totalPages}
+              </button>
+            </li>
+          ) : null}
           <li>
-            <button
-              onClick={next}
-              className='outline-none hover:text-cyan rounded-full w-8 h-8 flex items-center justify-center bg-gray-200 p-2'
-            >
-              {page + 1}
+            <button className='' onClick={next}>
+              <img
+                src={paginationArrow}
+                alt='right'
+                className='w-full h-auto'
+              />
             </button>
           </li>
-        ) : null}
-        {page + 1 !== totalPages &&
-        page !== totalPages &&
-        page + 2 !== totalPages ? (
-          <li>
-            <button
-              className='outline-none hover:text-cyan rounded-full'
-              onClick={multistepNext}
-            >
-              ...
-            </button>
-          </li>
-        ) : null}
-        {page !== totalPages &&
-        page + 1 !== totalPages &&
-        page + 2 !== totalPages ? (
-          <li>
-            <button
-              onClick={() => setPage(totalPages)}
-              className='outline-none hover:text-cyan rounded-full w-8 h-8 flex items-center justify-center bg-gray-200 p-2'
-            >
-              {totalPages}
-            </button>
-          </li>
-        ) : null}
-        <li>
-          <button className='' onClick={next}>
-            <img src={paginationArrow} alt='right' className='w-full h-auto' />
-          </button>
-        </li>
-      </ul>
-    </div>
-  );
+        </ul>
+      </div>
+    );
 };
 
 export default Pagination;

@@ -94,6 +94,7 @@ export const CryptoProvider = ({ children }) => {
         setPage,
         resetFunc,
         setPerPage,
+        perPage,
       }}
     >
       {children}

@@ -3,8 +3,7 @@ import { Outlet, NavLink } from 'react-router-dom';
 import { CryptoProvider } from '../context/CryptoContext';
 const Home = () => {
   return (
-    
-   <CryptoProvider>
+    <CryptoProvider>
       <div className='space-y-4 '>
         <div className='flex justify-start items-center'>
           <NavLink to='/'>
@@ -27,7 +26,7 @@ const Home = () => {
 ${
   isActive
     ? 'bg-cyan text-gray-300'
-    : 'bg-gray-200 text-gray-100hover:text-cyan active:bg-cyan active:text-gray-300'
+    : 'bg-gray-200 text-gray-100 hover:text-cyan active:bg-cyan active:text-gray-300'
 }
     border-0 cursor-pointer rounded capitalize font-semibold`;
               }}
@@ -85,8 +84,7 @@ ${
         </div>
         <Outlet />
       </div>
-
-   </CryptoProvider>
+    </CryptoProvider>
   );
 };
 
