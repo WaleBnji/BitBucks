@@ -14,7 +14,7 @@ import { useContext } from 'react';
 // import { useCoins } from '../hooks/useCoins';
 import Search from '../components/Filter';
 import Pagination from '../components/Pagination';
-import { Outlet } from 'react-router-dom';
+import { Link, Outlet } from 'react-router-dom';
 const Crypto = () => {
   // const [paginate, setPaginate] = useState({
   //   orderBy: 'marketCap',
@@ -417,10 +417,16 @@ const Crypto = () => {
                         height={25}
                         width={25}
                       />
-                      <h3 className='capitalize'>{coin?.symbol}</h3>
+                      <h3 className='capitalize'>
+                        <Link to={`${coin.id}`} className='pointer'>
+                          {coin?.symbol}
+                        </Link>
+                      </h3>
                     </td>
                     <td className='py-1 text-white font-semibold'>
-                      {coin?.name}
+                      <Link to={`${coin.id}`} className='cursor-pointer'>
+                        {coin?.name}
+                      </Link>
                     </td>
                     <td className='py-1 font-semibold text-left'>
                       {new Intl.NumberFormat('en-Ng', {
