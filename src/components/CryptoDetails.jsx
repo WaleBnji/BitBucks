@@ -3,6 +3,7 @@ import { useContext, useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import { useNavigate, useParams } from 'react-router-dom';
 import { CryptoContext } from '../context/CryptoContext';
+import Chart from './Chart';
 // import { IoMdArrowDropup } from 'react-icons/io';
 /* eslint-disable react/prop-types */ // TODO: upgrade to latest eslint tooling
 
@@ -271,7 +272,9 @@ const CryptoDetails = () => {
               </div>
             </div>
 
-            <div className='bg-cyan-300 flex flex-col w-[55%]'>right</div>
+            <div className='bg-cyan-300 flex flex-col w-[55%]'>
+              <Chart id={coinData.id} />
+            </div>
           </>
         ) : (
           <div className='w-full h-full min-h-[60vh] flex justify-center items-center'>
